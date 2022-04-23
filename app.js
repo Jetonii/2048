@@ -64,19 +64,31 @@ fillRandom = function () {
 fillRandom()
 fillRandom();
 
-document.addEventListener('swiped-left', function(e) {
-    leftPressed()
-  });
-  document.addEventListener('swiped-right', function(e) {
-    rightPressed()
-});
-  document.addEventListener('swiped-up', function(e) {
-    upPressed()
-  });
-  
-  document.addEventListener('swiped-down', function(e) {
-    downPressed()
-  });
+var startingX, startingY, movingX, movingY;
+function touchStart(evt) {
+    startingX = evt.touches[0].clientX;
+    startingY = evt.touches[0].clientY;
+}
+function touchMove(evt) {
+    movingX = evt.touches[0].clientX;
+    movingY = evt.touches[0].clientY;
+}
+function touchEnd() {
+    if (startingX + 100 < movingX) {
+        rightPressed()
+    } else if (startingX - 100 > movingX) {
+        console.log('left');
+        leftPressed()
+    }
+
+    if (startingY + 100 < movingY) {
+        console.log('down');
+        downPressed()
+    } else if (startingY - 100 > movingY) {
+        console.log('up');
+        upPressed()
+    }
+}
 document.addEventListener('keydown', (event) => {
     switch (event.key) {
         case "ArrowLeft":
