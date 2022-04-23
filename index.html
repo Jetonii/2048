@@ -7,9 +7,9 @@
     <title>2048 game</title>
     <link rel="stylesheet" href="app.css">
 </head>
-<body ontouchstart="touchStart(event)"
-ontouchmove="touchMove(event)"
-ontouchend="touchEnd()">
+<body data-swipe-threshold="20"
+data-swipe-timeout="500"
+data-swipe-ignore="false">
     <center>
     <h1>Score:</h1><h1 id='score'>0</h1>
     <hr>
@@ -24,5 +24,6 @@ ontouchend="touchEnd()">
     <button id='playAgain'>Play Again</button> 
     </center>
     <script src="app.js"></script>
+    <script src="src/pure-swipe.js"></script>
 </body>
 </html>
