@@ -63,51 +63,32 @@ fillRandom = function () {
 }
 fillRandom()
 fillRandom();
-document.addEventListener('touchstart', handleTouchStart, false);        
-document.addEventListener('touchmove', handleTouchMove, false);
 
-var xDown = null;                                                        
-var yDown = null;
-
-function getTouches(evt) {
-  return evt.touches ||             // browser API
-         evt.originalEvent.touches; // jQuery
-}                                                     
-
-function handleTouchStart(evt) {
-    const firstTouch = getTouches(evt)[0];                                      
-    xDown = firstTouch.clientX;                                      
-    yDown = firstTouch.clientY;                                      
-};                                                
-
-function handleTouchMove(evt) {
-    if ( ! xDown || ! yDown ) {
-        return;
+var startingX, startingY, movingX, movingY;
+function touchStart(evt) {
+    startingX = evt.touches[0].clientX;
+    startingY = evt.touches[0].clientY;
+}
+function touchMove(evt) {
+    movingX = evt.touches[0].clientX;
+    movingY = evt.touches[0].clientY;
+}
+function touchEnd() {
+    if (startingX + 100 < movingX) {
+        rightPressed
+    } else if (startingX - 100 > movingX) {
+        console.log('left');
+        leftPressed
     }
 
-    var xUp = evt.touches[0].clientX;                                    
-    var yUp = evt.touches[0].clientY;
-
-    var xDiff = xDown - xUp;
-    var yDiff = yDown - yUp;
-
-    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-        if ( xDiff > 0 ) {
-            leftPressed()
-        } else {
-            rightPressed()
-        }                       
-    } else {
-        if ( yDiff > 0 ) {
-            upPressed();
-        } else { 
-            downPressed();
-        }                                                                 
+    if (startingY + 100 < movingY) {
+        console.log('down');
+        downPressed
+    } else if (startingY - 100 > movingY) {
+        console.log('up');
+        upPressed
     }
-    /* reset values */
-    xDown = null;
-    yDown = null;                                             
-};
+}
 document.addEventListener('keydown', (event) => {
     switch (event.key) {
         case "ArrowLeft":
