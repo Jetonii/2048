@@ -7,7 +7,9 @@
     <title>2048 game</title>
     <link rel="stylesheet" href="app.css">
 </head>
-<body>
+<body ontouchstart="touchStart(event)"
+ontouchmove="touchMove(event)"
+ontouchend="touchEnd()">
     <center>
     <h1>Score:</h1><h1 id='score'>0</h1>
     <hr>
